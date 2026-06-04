@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AyurAid – AI Herbal First Aid Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #2d5a27;
+    --green-mid: #4a7c3f;
+    --green-light: #7aad6a;
+    --green-pale: #e8f2e4;
+    --green-wash: #f3f8f0;
+    --kraft: #c8a96e;
+    --kraft-light: #f5ede0;
+    --kraft-pale: #fdf8f2;
+    --earth: #8b5e3c;
+    --text-dark: #1e2d1a;
+    --text-mid: #4a5c44;
+    --text-soft: #7a8c74;
+    --border: rgba(74, 124, 63, 0.18);
+    --shadow: rgba(45, 90, 39, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--kraft-pale);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(122,173,106,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(200,169,110,0.08) 0%, transparent 50%);
+  }
+
+  .app {
+    width: 100%;
+    max-width: 480px;
+    height: 100vh;
+    max-height: 820px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 60px rgba(45,90,39,0.18), 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  @media (min-width: 520px) {
+    .app {
+      height: 92vh;
+      border-radius: 24px;
+    }
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--green-deep);
+    padding: 18px 20px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 40px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-mark {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+
+  .brand h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+  }
+
+  .brand p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-top: 2px;
+  }
+
+  .status-pill {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    background: #7aad6a;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .tagline {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.3px;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── Herb chips ── */
+  .herb-chips {
+    background: var(--green-wash);
+    padding: 10px 16px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .herb-chips::-webkit-scrollbar { display: none; }
+
+  .chip {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11.5px;
+    color: var(--green-mid);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .chip:hover {
+    background: var(--green-pale);
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+  }
+
+  /* ── Messages ── */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--kraft-pale);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(74,124,63,0.2) transparent;
+  }
+
+  .msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    animation: slideIn 0.25s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .msg.user {
+    align-self: flex-end;
+    align-items: flex-end;
+  }
+
+  .msg.bot {
+    align-self: flex-start;
+    align-items: flex-start;
+  }
+
+  .msg-label {
+    font-size: 10px;
+    color: var(--text-soft);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .bubble {
+    padding: 12px 16px;
+    border-radius: 18px;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  .msg.user .bubble {
+    background: var(--green-deep);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg.bot .bubble {
+    background: #fff;
+    color: var(--text-dark);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .msg.bot .bubble strong {
+    color: var(--green-deep);
+  }
+
+  .msg.bot .bubble em {
+    color: var(--earth);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* herb card inside bubble */
+  .herb-card {
+    margin-top: 10px;
+    background: var(--green-wash);
+    border: 1px solid rgba(74,124,63,0.2);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .herb-card .herb-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--green-deep);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .herb-badge {
+    background: var(--green-deep);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .caution-box {
+    margin-top: 8px;
+    background: rgba(200,169,110,0.15);
+    border-left: 3px solid var(--kraft);
+    border-radius: 0 8px 8px 0;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--earth);
+  }
+
+  /* typing indicator */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .typing-dot {
+    width: 7px; height: 7px;
+    background: var(--green-light);
+    border-radius: 50%;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
+  }
+
+  /* ── Welcome card ── */
+  .welcome-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 16px var(--shadow);
+  }
+
+  .welcome-leaf {
+    font-size: 36px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .welcome-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--green-deep);
+    margin-bottom: 6px;
+  }
+
+  .welcome-card p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .quick-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .quick-btn {
+    background: var(--green-wash);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--green-mid);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: 'Lato', sans-serif;
+  }
+  .quick-btn:hover {
+    background: var(--green-pale);
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+  }
+
+  /* ── Input bar ── */
+  .input-bar {
+    padding: 12px 16px 16px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .input-wrap {
+    flex: 1;
+    background: var(--kraft-pale);
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px 14px;
+    gap: 8px;
+    transition: border-color 0.2s;
+  }
+  .input-wrap:focus-within {
+    border-color: var(--green-mid);
+    background: #fff;
+  }
+
+  .input-wrap textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    resize: none;
+    max-height: 100px;
+    line-height: 1.5;
+    min-height: 20px;
+  }
+
+  .input-wrap textarea::placeholder {
+    color: var(--text-soft);
+  }
+
+  .send-btn {
+    width: 42px; height: 42px;
+    background: var(--green-deep);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(45,90,39,0.3);
+  }
+  .send-btn:hover { background: var(--green-mid); transform: scale(1.05); }
+  .send-btn:active { transform: scale(0.95); }
+  .send-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .send-btn svg {
+    width: 18px; height: 18px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: translateX(1px);
+  }
+
+  .disclaimer {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-soft);
+    padding: 0 16px 10px;
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  /* ── Lang toggle ── */
+  .lang-toggle {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+  }
+  .lang-btn {
+    padding: 3px 9px;
+    font-size: 11px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+  }
+  .lang-btn.active {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo-mark">🌿</div>
+      <div class="brand">
+        <h1>AyurAid</h1>
+        <p data-i18n="subtitle">AI Herbal First Aid</p>
+      </div>
+      <div class="status-pill">
+        <div class="dot"></div>
+        <span data-i18n="active">Active</span>
+      </div>
+      <div class="lang-toggle" style="margin-left:8px">
+        <button class="lang-btn active" id="btn-en">EN</button>
+        <button class="lang-btn" id="btn-ml">മലയ</button>
+      </div>
+    </div>
+    <div class="tagline" data-i18n="tagline">Nature. Knowledge. Care.</div>
+  </div>
+
+  <!-- Herb chips -->
+  <div class="herb-chips">
+    <span class="chip" onclick="askAbout('Turmeric (Manjal)')" data-i18n="chip_turmeric">🟡 Turmeric</span>
+    <span class="chip" onclick="askAbout('Neem (Veppu)')" data-i18n="chip_neem">🌿 Neem</span>
+    <span class="chip" onclick="askAbout('Tulsi (Thulasi)')" data-i18n="chip_tulsi">🌱 Tulsi</span>
+    <span class="chip" onclick="askAbout('Aloe Vera (Kattarvazha)')" data-i18n="chip_aloe">💚 Aloe Vera</span>
+    <span class="chip" onclick="askAbout('Ginger (Inji)')" data-i18n="chip_ginger">🫚 Ginger</span>
+    <span class="chip" onclick="askAbout('Curry Leaf (Kariveppila)')" data-i18n="chip_curry">🍃 Curry Leaf</span>
+  </div>
+
+  <!-- Messages -->
+  <div class="messages" id="messages">
+
+    <!-- Welcome -->
+    <div class="welcome-card" id="welcome-card">
+      <span class="welcome-leaf">🌿</span>
+      <h2 data-i18n="welcome_title">Namaskaram! Welcome to AyurAid</h2>
+      <p data-i18n="welcome_desc">I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Describe your symptom and I'll recommend the right herb from your AyurAid kit.</p>
+
+      <div class="quick-prompts" style="margin-top:12px">
+        <div style="font-size:11px;color:var(--text-soft);letter-spacing:0.8px;text-transform:uppercase;font-weight:700;margin-bottom:2px;" data-i18n="try_asking">Try asking…</div>
+        <button class="quick-btn" onclick="sendQuick('I have a small cut on my finger')" data-i18n="q1">🩹 I have a small cut on my finger</button>
+        <button class="quick-btn" onclick="sendQuick('I have a headache and mild fever')" data-i18n="q2">🤒 I have a headache and mild fever</button>
+        <button class="quick-btn" onclick="sendQuick('My skin is irritated from a rash')" data-i18n="q3">🌡️ My skin is irritated from a rash</button>
+        <button class="quick-btn" onclick="sendQuick('I feel nauseous after eating')" data-i18n="q4">🤢 I feel nauseous after eating</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Input bar -->
+  <div class="input-bar">
+    <div class="input-wrap">
+      <textarea id="user-input" placeholder="Type your symptom here…" data-i18n-placeholder="placeholder" rows="1"
+        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    </div>
+    <button class="send-btn" id="send-btn" onclick="sendMessage()" title="Send">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </button>
+  </div>
+
+  <div class="disclaimer" data-i18n="disclaimer">⚕️ For minor first aid guidance only. Always consult a doctor for serious symptoms.</div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  const API_KEY = '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';
+  let currentLang = 'en';
+
+  const i18n = {
+    en: {
+      subtitle:      'AI Herbal First Aid',
+      active:        'Active',
+      tagline:       'Nature. Knowledge. Care.',
+      chip_turmeric: '🟡 Turmeric',
+      chip_neem:     '🌿 Neem',
+      chip_tulsi:    '🌱 Tulsi',
+      chip_aloe:     '💚 Aloe Vera',
+      chip_ginger:   '🫚 Ginger',
+      chip_curry:    '🍃 Curry Leaf',
+      welcome_title: 'Namaskaram! Welcome to AyurAid',
+      welcome_desc:  "I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Describe your symptom and I'll recommend the right herb from your AyurAid kit.",
+      try_asking:    'Try asking…',
+      q1:            '🩹 I have a small cut on my finger',
+      q2:            '🤒 I have a headache and mild fever',
+      q3:            '🌡️ My skin is irritated from a rash',
+      q4:            '🤢 I feel nauseous after eating',
+      placeholder:   'Type your symptom here…',
+      disclaimer:    '⚕️ For minor first aid guidance only. Always consult a doctor for serious symptoms.',
+      you_label:     'You',
+    },
+    ml: {
+      subtitle:      'AI ഔഷധ പ്രഥമ ശുശ്രൂഷ',
+      active:        'സജീവം',
+      tagline:       'പ്രകൃതി. അറിവ്. പരിചരണം.',
+      chip_turmeric: '🟡 മഞ്ഞൾ',
+      chip_neem:     '🌿 വേപ്പ്',
+      chip_tulsi:    '🌱 തുളസി',
+      chip_aloe:     '💚 കറ്റാർ വാഴ',
+      chip_ginger:   '🫚 ഇഞ്ചി',
+      chip_curry:    '🍃 കറിവേപ്പില',
+      welcome_title: 'നമസ്കാരം! AyurAid-ലേക്ക് സ്വാഗതം',
+      welcome_desc:  'കേരളത്തിന്റെ ആയുർവേദ ജ്ഞാനത്തിൽ പ്രവർത്തിക്കുന്ന നിങ്ങളുടെ AI ഔഷധ വഴികാട്ടിയാണ് ഞാൻ. നിങ്ങളുടെ രോഗലക്ഷണം വിവരിക്കൂ, AyurAid കിറ്റിൽ നിന്ന് ഉചിതമായ സസ്യം ഞാൻ നിർദ്ദേശിക്കാം.',
+      try_asking:    'ഇങ്ങനെ ചോദിക്കൂ…',
+      q1:            '🩹 എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്',
+      q2:            '🤒 എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്',
+      q3:            '🌡️ ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു',
+      q4:            '🤢 ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു',
+      placeholder:   'നിങ്ങളുടെ രോഗലക്ഷണം ഇവിടെ ടൈപ്പ് ചെയ്യൂ…',
+      disclaimer:    '⚕️ ചെറിയ പ്രഥമ ശുശ്രൂഷ മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം. ഗുരുതരമായ ലക്ഷണങ്ങൾക്ക് എപ്പോഴും ഒരു ഡോക്ടറെ കണ്ടുമുട്ടുക.',
+      you_label:     'നിങ്ങൾ',
+    }
+  };
+
+  function applyLang(lang) {
+    const t = i18n[lang];
+    // Update all tagged elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (t[key] !== undefined) el.placeholder = t[key];
+    });
+    // Update quick-btn onclick targets for Malayalam questions
+    const quickBtns = document.querySelectorAll('.quick-btn');
+    const qKeys = ['q1','q2','q3','q4'];
+    const mlQueries = [
+      'എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്',
+      'എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്',
+      'ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു',
+      'ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു'
+    ];
+    const enQueries = [
+      'I have a small cut on my finger',
+      'I have a headache and mild fever',
+      'My skin is irritated from a rash',
+      'I feel nauseous after eating'
+    ];
+    quickBtns.forEach((btn, i) => {
+      const query = lang === 'ml' ? mlQueries[i] : enQueries[i];
+      btn.onclick = () => sendQuick(query);
+    });
+    // Update chip onclick targets for Malayalam herb asks
+    const chipKeys = ['chip_turmeric','chip_neem','chip_tulsi','chip_aloe','chip_ginger','chip_curry'];
+    const herbs = lang === 'ml'
+      ? ['മഞ്ഞൾ (Manjal)', 'വേപ്പ് (Veppu)', 'തുളസി (Thulasi)', 'കറ്റാർ വാഴ (Kattarvazha)', 'ഇഞ്ചി (Inji)', 'കറിവേപ്പില (Kariveppila)']
+      : ['Turmeric (Manjal)', 'Neem (Veppu)', 'Tulsi (Thulasi)', 'Aloe Vera (Kattarvazha)', 'Ginger (Inji)', 'Curry Leaf (Kariveppila)'];
+    document.querySelectorAll('.chip').forEach((chip, i) => {
+      chip.onclick = () => askAbout(herbs[i]);
+    });
+    // html lang attribute
+    document.documentElement.lang = lang === 'ml' ? 'ml' : 'en';
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-ml').classList.toggle('active', lang === 'ml');
+    applyLang(lang);
+  }
+
+  // Wire lang buttons
+  document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
+  document.getElementById('btn-ml').addEventListener('click', function() { setLang('ml'); });
+
+  // Wire quick-btns and chips via delegation
+  document.getElementById('messages').addEventListener('click', function() {});
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function sendQuick(text) {
+    document.getElementById('user-input').value = text;
+    sendMessage();
+  }
+
+  function askAbout(herb) {
+    sendQuick('Tell me about ' + herb + ' in the AyurAid kit — what is it used for and how do I apply it?');
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    addUserMessage(text);
+    input.value = '';
+    input.style.height = 'auto';
+
+    const sendBtn = document.getElementById('send-btn');
+    sendBtn.disabled = true;
+
+    const typingId = showTyping();
+
+    try {
+      const response = await callGroq(text);
+      removeTyping(typingId);
+      addBotMessage(response);
+    } catch (err) {
+      removeTyping(typingId);
+      addBotMessage("⚠️ Error: " + err.message + ". Please check your Grok API key and try again.");
+    }
+
+    sendBtn.disabled = false;
+  }
+
+  async function callGroq(userText) {
+    const langInstruction = currentLang === 'ml'
+      ? 'Please respond in Malayalam (മലയാളം).'
+      : 'Please respond in English.';
+
+    const systemPrompt = `You are AyurAid, an AI-powered Ayurvedic herbal first aid assistant.
+Your AyurAid kit contains these herbs: Turmeric (Manjal) for cuts/wounds/inflammation, Neem (Veppu) for skin infections/rashes, Tulsi (Thulasi) for cold/cough/fever, Aloe Vera (Kattarvazha) for burns/sunburn/skin soothing, Ginger (Inji) for nausea/indigestion/joint pain, Curry Leaf (Kariveppila) for hair loss/eye health/diabetes support, and Herbal Balm for cuts/skin.
+
+When a user describes a symptom:
+1. Greet warmly and acknowledge their symptom
+2. Recommend the most appropriate herb(s) from the kit with their Malayalam name in brackets
+3. Give clear step-by-step instructions on how to prepare and apply it
+4. Include a caution: mention when to see a doctor instead
+5. Keep responses concise, shorter, caring, practical and keep it within eight lines
+6. Use simple language
+7. Do not suggest boiling and crushing fresh roots or leaves.
+
+${langInstruction}`;
+
+    const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
+
+    const body = {
+      model: 'llama-3.1-8b-instant',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userText }
+      ],
+      temperature: 0.7,
+      max_tokens: 600
+    };
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + API_KEY
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'API request failed (status ' + res.status + ')');
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || 'No response received.';
+  }
+
+  function addUserMessage(text) {
+    const msgs = document.getElementById('messages');
+    const div = document.createElement('div');
+    div.className = 'msg user';
+    div.innerHTML = `
+      <div class="msg-label">${i18n[currentLang].you_label}</div>
+      <div class="bubble">${escapeHtml(text)}</div>
+    `;
+    msgs.appendChild(div);
+    scrollBottom();
+  }
+
+  function addBotMessage(text) {
+    const msgs = document.getElementById('messages');
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.innerHTML = `
+      <div class="msg-label">🌿 AyurAid</div>
+      <div class="bubble">${formatResponse(text)}</div>
+    `;
+    msgs.appendChild(div);
+    scrollBottom();
+  }
+
+  function formatResponse(text) {
+    // Format markdown-like text into HTML
+    let html = escapeHtml(text);
+
+    // Bold (**text**)
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    // Italic (*text*)
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    // Bullet points
+    html = html.replace(/^[\u2022\-\*] (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>)/gs, '<ul style="padding-left:16px;margin:6px 0">$1</ul>');
+    // Numbered steps
+    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+    // Line breaks
+    html = html.replace(/\n\n/g, '</p><p style="margin-top:8px">');
+    html = html.replace(/\n/g, '<br>');
+
+    return '<p>' + html + '</p>';
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('messages');
+    const id = 'typing-' + Date.now();
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.id = id;
+    div.innerHTML = `
+      <div class="msg-label">🌿 AyurAid</div>
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    `;
+    msgs.appendChild(div);
+    scrollBottom();
+    return id;
+  }
+
+  function removeTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  function scrollBottom() {
+    const msgs = document.getElementById('messages');
+    setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 50);
+  }
+
+  // Expose to global scope for inline onclick handlers
+  window.sendMessage = sendMessage;
+  window.sendQuick = sendQuick;
+  window.askAbout = askAbout;
+  window.autoResize = autoResize;
+  window.handleKey = handleKey;
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
