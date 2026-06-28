@@ -21,6 +21,7 @@
     --text-soft: #7a8c74;
     --border: rgba(74, 124, 63, 0.18);
     --shadow: rgba(45, 90, 39, 0.12);
+    --red: #c0392b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,16 +53,13 @@
   }
 
   @media (min-width: 520px) {
-    .app {
-      height: 92vh;
-      border-radius: 24px;
-    }
+    .app { height: 92vh; border-radius: 24px; }
   }
 
   /* ── Header ── */
   .header {
     background: var(--green-deep);
-    padding: 18px 20px 16px;
+    padding: 16px 20px 14px;
     position: relative;
     overflow: hidden;
   }
@@ -74,36 +72,27 @@
     border-radius: 50%;
     pointer-events: none;
   }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -20px; left: 40px;
-    width: 80px; height: 80px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 50%;
-    pointer-events: none;
-  }
 
   .header-top {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
 
   .logo-mark {
-    width: 42px; height: 42px;
+    width: 40px; height: 40px;
     background: rgba(255,255,255,0.12);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     border: 1.5px solid rgba(255,255,255,0.2);
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: 19px;
   }
 
   .brand h1 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 22px;
+    font-size: 21px;
     color: #fff;
     letter-spacing: 0.5px;
     line-height: 1.1;
@@ -112,14 +101,13 @@
   .brand p {
     font-size: 11px;
     color: rgba(255,255,255,0.65);
-    letter-spacing: 1.8px;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
     font-weight: 300;
     margin-top: 2px;
   }
 
   .status-pill {
-    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -138,20 +126,47 @@
     animation: pulse 2s ease-in-out infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  .header-bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
 
   .tagline {
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255,255,255,0.1);
     font-size: 12px;
     color: rgba(255,255,255,0.55);
-    letter-spacing: 0.3px;
     font-style: italic;
     font-family: 'Playfair Display', serif;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+  }
+
+  .ctrl-btn {
+    padding: 3px 9px;
+    font-size: 11px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 12px;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .ctrl-btn.active {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
   }
 
   /* ── Herb chips ── */
@@ -201,7 +216,7 @@
   .msg {
     display: flex;
     flex-direction: column;
-    max-width: 85%;
+    max-width: 88%;
     animation: slideIn 0.25s ease;
   }
   @keyframes slideIn {
@@ -209,15 +224,8 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .msg.user {
-    align-self: flex-end;
-    align-items: flex-end;
-  }
-
-  .msg.bot {
-    align-self: flex-start;
-    align-items: flex-start;
-  }
+  .msg.user { align-self: flex-end; align-items: flex-end; }
+  .msg.bot  { align-self: flex-start; align-items: flex-start; }
 
   .msg-label {
     font-size: 10px;
@@ -249,49 +257,80 @@
     box-shadow: 0 2px 8px var(--shadow);
   }
 
-  .msg.bot .bubble strong {
-    color: var(--green-deep);
-  }
+  .msg.bot .bubble strong { color: var(--green-deep); }
+  .msg.bot .bubble em { color: var(--earth); font-style: normal; font-weight: 700; }
 
-  .msg.bot .bubble em {
-    color: var(--earth);
-    font-style: normal;
-    font-weight: 700;
-  }
-
-  /* herb card inside bubble */
-  .herb-card {
+  /* ── Prepare card ── */
+  .prepare-card {
     margin-top: 10px;
-    background: var(--green-wash);
-    border: 1px solid rgba(74,124,63,0.2);
+    background: var(--kraft-light);
+    border: 1px solid rgba(200,169,110,0.35);
     border-radius: 12px;
-    padding: 10px 12px;
-    font-size: 13px;
+    overflow: hidden;
   }
 
-  .herb-card .herb-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--green-deep);
+  .prepare-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 9px 12px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 4px;
+    gap: 7px;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--earth);
+    text-align: left;
+    letter-spacing: 0.3px;
   }
+  .prepare-toggle:hover { background: rgba(200,169,110,0.12); }
+  .prepare-toggle .chevron {
+    margin-left: auto;
+    font-size: 10px;
+    transition: transform 0.25s;
+  }
+  .prepare-toggle.open .chevron { transform: rotate(180deg); }
 
-  .herb-badge {
-    background: var(--green-deep);
+  .prepare-body {
+    display: none;
+    padding: 0 12px 10px;
+    font-size: 13px;
+    color: var(--earth);
+    line-height: 1.65;
+    border-top: 1px solid rgba(200,169,110,0.25);
+  }
+  .prepare-body.open { display: block; }
+
+  .prepare-steps {
+    list-style: none;
+    counter-reset: step;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .prepare-steps li {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .prepare-steps li::before {
+    content: counter(step);
+    background: var(--earth);
     color: #fff;
     font-size: 10px;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-family: 'Lato', sans-serif;
     font-weight: 700;
-    text-transform: uppercase;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
+  /* ── Caution box ── */
   .caution-box {
     margin-top: 8px;
     background: rgba(200,169,110,0.15);
@@ -302,7 +341,7 @@
     color: var(--earth);
   }
 
-  /* typing indicator */
+  /* ── Typing ── */
   .typing-indicator {
     display: flex;
     align-items: center;
@@ -326,8 +365,8 @@
   .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
   @keyframes bounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-6px); }
+    0%,60%,100%{transform:translateY(0);}
+    30%{transform:translateY(-6px);}
   }
 
   /* ── Welcome card ── */
@@ -340,11 +379,7 @@
     box-shadow: 0 2px 16px var(--shadow);
   }
 
-  .welcome-leaf {
-    font-size: 36px;
-    margin-bottom: 8px;
-    display: block;
-  }
+  .welcome-leaf { font-size: 36px; margin-bottom: 8px; display: block; }
 
   .welcome-card h2 {
     font-family: 'Playfair Display', serif;
@@ -360,11 +395,7 @@
     margin-bottom: 14px;
   }
 
-  .quick-prompts {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
+  .quick-prompts { display: flex; flex-direction: column; gap: 6px; }
 
   .quick-btn {
     background: var(--green-wash);
@@ -386,11 +417,11 @@
 
   /* ── Input bar ── */
   .input-bar {
-    padding: 12px 16px 16px;
+    padding: 10px 16px 8px;
     background: #fff;
     border-top: 1px solid var(--border);
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: flex-end;
   }
 
@@ -401,13 +432,19 @@
     border-radius: 22px;
     display: flex;
     align-items: flex-end;
-    padding: 10px 14px;
+    padding: 9px 14px;
     gap: 8px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, background 0.2s;
   }
-  .input-wrap:focus-within {
-    border-color: var(--green-mid);
-    background: #fff;
+  .input-wrap:focus-within { border-color: var(--green-mid); background: #fff; }
+  .input-wrap.listening {
+    border-color: var(--red);
+    background: #fff5f4;
+    animation: pulseBorder 1.4s ease-in-out infinite;
+  }
+  @keyframes pulseBorder {
+    0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.3);}
+    50%{box-shadow:0 0 0 6px rgba(192,57,43,0);}
   }
 
   .input-wrap textarea {
@@ -423,35 +460,52 @@
     line-height: 1.5;
     min-height: 20px;
   }
+  .input-wrap textarea::placeholder { color: var(--text-soft); }
 
-  .input-wrap textarea::placeholder {
-    color: var(--text-soft);
-  }
-
-  .send-btn {
+  .icon-btn {
     width: 42px; height: 42px;
-    background: var(--green-deep);
-    border: none;
     border-radius: 50%;
+    border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     transition: all 0.2s;
+    font-size: 17px;
+  }
+
+  .mic-btn {
+    background: #fff;
+    border: 1.5px solid var(--border) !important;
+    color: var(--green-deep);
+  }
+  .mic-btn:hover:not(:disabled) { background: var(--green-pale); border-color: var(--green-mid) !important; }
+  .mic-btn.active {
+    background: var(--red);
+    border-color: var(--red) !important;
+    color: #fff;
+    animation: micPulse 1.2s ease-in-out infinite;
+  }
+  .mic-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+
+  @keyframes micPulse {
+    0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,0.4);}
+    50%{box-shadow:0 0 0 10px rgba(192,57,43,0);}
+  }
+
+  .send-btn {
+    background: var(--green-deep);
+    color: #fff;
     box-shadow: 0 2px 8px rgba(45,90,39,0.3);
   }
-  .send-btn:hover { background: var(--green-mid); transform: scale(1.05); }
-  .send-btn:active { transform: scale(0.95); }
-  .send-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
-
+  .send-btn:hover:not(:disabled) { background: var(--green-mid); transform: scale(1.05); }
+  .send-btn:active:not(:disabled) { transform: scale(0.95); }
+  .send-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
   .send-btn svg {
-    width: 18px; height: 18px;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    width: 17px; height: 17px;
+    fill: none; stroke: #fff;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     transform: translateX(1px);
   }
 
@@ -459,34 +513,9 @@
     text-align: center;
     font-size: 10px;
     color: var(--text-soft);
-    padding: 0 16px 10px;
+    padding: 5px 16px 9px;
     background: #fff;
     line-height: 1.5;
-  }
-
-  /* ── Lang toggle ── */
-  .lang-toggle {
-    display: flex;
-    gap: 4px;
-    margin-left: auto;
-  }
-  .lang-btn {
-    padding: 3px 9px;
-    font-size: 11px;
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 12px;
-    background: transparent;
-    color: rgba(255,255,255,0.7);
-    cursor: pointer;
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: all 0.15s;
-  }
-  .lang-btn.active {
-    background: rgba(255,255,255,0.2);
-    color: #fff;
-    border-color: rgba(255,255,255,0.4);
   }
 </style>
 </head>
@@ -506,150 +535,163 @@
         <div class="dot"></div>
         <span data-i18n="active">Active</span>
       </div>
-      <div class="lang-toggle" style="margin-left:8px">
-        <button class="lang-btn active" id="btn-en">EN</button>
-        <button class="lang-btn" id="btn-ml">മലയ</button>
+    </div>
+    <div class="header-bottom">
+      <div class="tagline" data-i18n="tagline">Nature. Knowledge. Care.</div>
+      <div class="header-controls">
+        <button class="ctrl-btn active" id="btn-en">EN</button>
+        <button class="ctrl-btn" id="btn-ml">മലയ</button>
+        <button class="ctrl-btn active" id="btn-voice" title="Toggle voice replies">🔊</button>
       </div>
     </div>
-    <div class="tagline" data-i18n="tagline">Nature. Knowledge. Care.</div>
   </div>
 
   <!-- Herb chips -->
-  <div class="herb-chips">
-    <span class="chip" onclick="askAbout('Turmeric (Manjal)')" data-i18n="chip_turmeric">🟡 Turmeric</span>
-    <span class="chip" onclick="askAbout('Neem (Veppu)')" data-i18n="chip_neem">🌿 Neem</span>
-    <span class="chip" onclick="askAbout('Tulsi (Thulasi)')" data-i18n="chip_tulsi">🌱 Tulsi</span>
-    <span class="chip" onclick="askAbout('Aloe Vera (Kattarvazha)')" data-i18n="chip_aloe">💚 Aloe Vera</span>
-    <span class="chip" onclick="askAbout('Ginger (Inji)')" data-i18n="chip_ginger">🫚 Ginger</span>
-    <span class="chip" onclick="askAbout('Curry Leaf (Kariveppila)')" data-i18n="chip_curry">🍃 Curry Leaf</span>
+  <div class="herb-chips" id="herb-chips">
+    <span class="chip" data-herb="Turmeric (Manjal)" data-i18n="chip_turmeric">🟡 Turmeric</span>
+    <span class="chip" data-herb="Neem (Veppu)" data-i18n="chip_neem">🌿 Neem</span>
+    <span class="chip" data-herb="Tulsi (Thulasi)" data-i18n="chip_tulsi">🌱 Tulsi</span>
+    <span class="chip" data-herb="Aloe Vera (Kattarvazha)" data-i18n="chip_aloe">💚 Aloe Vera</span>
+    <span class="chip" data-herb="Ginger (Inji)" data-i18n="chip_ginger">🫚 Ginger</span>
+    <span class="chip" data-herb="Curry Leaf (Kariveppila)" data-i18n="chip_curry">🍃 Curry Leaf</span>
   </div>
 
   <!-- Messages -->
   <div class="messages" id="messages">
-
-    <!-- Welcome -->
     <div class="welcome-card" id="welcome-card">
       <span class="welcome-leaf">🌿</span>
       <h2 data-i18n="welcome_title">Namaskaram! Welcome to AyurAid</h2>
-      <p data-i18n="welcome_desc">I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Describe your symptom and I'll recommend the right herb from your AyurAid kit.</p>
-
+      <p data-i18n="welcome_desc">I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Type or tap the mic 🎙️ — I'll recommend the right herb from your AyurAid kit.</p>
       <div class="quick-prompts" style="margin-top:12px">
-        <div style="font-size:11px;color:var(--text-soft);letter-spacing:0.8px;text-transform:uppercase;font-weight:700;margin-bottom:2px;" data-i18n="try_asking">Try asking…</div>
-        <button class="quick-btn" onclick="sendQuick('I have a small cut on my finger')" data-i18n="q1">🩹 I have a small cut on my finger</button>
-        <button class="quick-btn" onclick="sendQuick('I have a headache and mild fever')" data-i18n="q2">🤒 I have a headache and mild fever</button>
-        <button class="quick-btn" onclick="sendQuick('My skin is irritated from a rash')" data-i18n="q3">🌡️ My skin is irritated from a rash</button>
-        <button class="quick-btn" onclick="sendQuick('I feel nauseous after eating')" data-i18n="q4">🤢 I feel nauseous after eating</button>
+        <div style="font-size:11px;color:var(--text-soft);letter-spacing:0.8px;text-transform:uppercase;font-weight:700;margin-bottom:4px;" data-i18n="try_asking">Try asking…</div>
+        <button class="quick-btn" data-prompt-en="I have a small cut on my finger" data-prompt-ml="എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്">🩹 I have a small cut on my finger</button>
+        <button class="quick-btn" data-prompt-en="I have a headache and mild fever" data-prompt-ml="എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്">🤒 I have a headache and mild fever</button>
+        <button class="quick-btn" data-prompt-en="My skin is irritated from a rash" data-prompt-ml="ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു">🌡️ My skin is irritated from a rash</button>
+        <button class="quick-btn" data-prompt-en="I feel nauseous after eating" data-prompt-ml="ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു">🤢 I feel nauseous after eating</button>
       </div>
     </div>
-
   </div>
 
   <!-- Input bar -->
   <div class="input-bar">
-    <div class="input-wrap">
-      <textarea id="user-input" placeholder="Type your symptom here…" data-i18n-placeholder="placeholder" rows="1"
-        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <div class="input-wrap" id="input-wrap">
+      <textarea id="user-input" rows="1" placeholder="Describe your symptom…" data-i18n-placeholder="placeholder"></textarea>
     </div>
-    <button class="send-btn" id="send-btn" onclick="sendMessage()" title="Send">
+    <button class="icon-btn mic-btn" id="mic-btn" title="Speak your symptom">🎙️</button>
+    <button class="icon-btn send-btn" id="send-btn">
       <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
     </button>
   </div>
 
   <div class="disclaimer" data-i18n="disclaimer">⚕️ For minor first aid guidance only. Always consult a doctor for serious symptoms.</div>
-
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-  const API_KEY = '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';
+  const GROQ_API_KEY = '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';
   let currentLang = 'en';
+  let voiceOn = true;
+  let listening = false;
+  let recognition = null;
 
+  /* ── i18n ── */
   const i18n = {
     en: {
-      subtitle:      'AI Herbal First Aid',
-      active:        'Active',
-      tagline:       'Nature. Knowledge. Care.',
-      chip_turmeric: '🟡 Turmeric',
-      chip_neem:     '🌿 Neem',
-      chip_tulsi:    '🌱 Tulsi',
-      chip_aloe:     '💚 Aloe Vera',
-      chip_ginger:   '🫚 Ginger',
-      chip_curry:    '🍃 Curry Leaf',
-      welcome_title: 'Namaskaram! Welcome to AyurAid',
-      welcome_desc:  "I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Describe your symptom and I'll recommend the right herb from your AyurAid kit.",
-      try_asking:    'Try asking…',
-      q1:            '🩹 I have a small cut on my finger',
-      q2:            '🤒 I have a headache and mild fever',
-      q3:            '🌡️ My skin is irritated from a rash',
-      q4:            '🤢 I feel nauseous after eating',
-      placeholder:   'Type your symptom here…',
-      disclaimer:    '⚕️ For minor first aid guidance only. Always consult a doctor for serious symptoms.',
-      you_label:     'You',
+      subtitle:'AI Herbal First Aid', active:'Active', tagline:'Nature. Knowledge. Care.',
+      chip_turmeric:'🟡 Turmeric', chip_neem:'🌿 Neem', chip_tulsi:'🌱 Tulsi',
+      chip_aloe:'💚 Aloe Vera', chip_ginger:'🫚 Ginger', chip_curry:'🍃 Curry Leaf',
+      welcome_title:'Namaskaram! Welcome to AyurAid',
+      welcome_desc:"I'm your AI herbal guide, powered by Kerala's Ayurvedic wisdom. Type or tap the mic 🎙️ — I'll recommend the right herb from your AyurAid kit.",
+      try_asking:'Try asking…',
+      q1:'🩹 I have a small cut on my finger',
+      q2:'🤒 I have a headache and mild fever',
+      q3:'🌡️ My skin is irritated from a rash',
+      q4:'🤢 I feel nauseous after eating',
+      placeholder:'Describe your symptom…',
+      disclaimer:'⚕️ For minor first aid guidance only. Always consult a doctor for serious symptoms.',
+      you_label:'You',
+      prepare_label:'🌿 How to Prepare',
     },
     ml: {
-      subtitle:      'AI ഔഷധ പ്രഥമ ശുശ്രൂഷ',
-      active:        'സജീവം',
-      tagline:       'പ്രകൃതി. അറിവ്. പരിചരണം.',
-      chip_turmeric: '🟡 മഞ്ഞൾ',
-      chip_neem:     '🌿 വേപ്പ്',
-      chip_tulsi:    '🌱 തുളസി',
-      chip_aloe:     '💚 കറ്റാർ വാഴ',
-      chip_ginger:   '🫚 ഇഞ്ചി',
-      chip_curry:    '🍃 കറിവേപ്പില',
-      welcome_title: 'നമസ്കാരം! AyurAid-ലേക്ക് സ്വാഗതം',
-      welcome_desc:  'കേരളത്തിന്റെ ആയുർവേദ ജ്ഞാനത്തിൽ പ്രവർത്തിക്കുന്ന നിങ്ങളുടെ AI ഔഷധ വഴികാട്ടിയാണ് ഞാൻ. നിങ്ങളുടെ രോഗലക്ഷണം വിവരിക്കൂ, AyurAid കിറ്റിൽ നിന്ന് ഉചിതമായ സസ്യം ഞാൻ നിർദ്ദേശിക്കാം.',
-      try_asking:    'ഇങ്ങനെ ചോദിക്കൂ…',
-      q1:            '🩹 എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്',
-      q2:            '🤒 എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്',
-      q3:            '🌡️ ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു',
-      q4:            '🤢 ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു',
-      placeholder:   'നിങ്ങളുടെ രോഗലക്ഷണം ഇവിടെ ടൈപ്പ് ചെയ്യൂ…',
-      disclaimer:    '⚕️ ചെറിയ പ്രഥമ ശുശ്രൂഷ മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം. ഗുരുതരമായ ലക്ഷണങ്ങൾക്ക് എപ്പോഴും ഒരു ഡോക്ടറെ കണ്ടുമുട്ടുക.',
-      you_label:     'നിങ്ങൾ',
+      subtitle:'AI ഔഷധ പ്രഥമ ശുശ്രൂഷ', active:'സജീവം', tagline:'പ്രകൃതി. അറിവ്. പരിചരണം.',
+      chip_turmeric:'🟡 മഞ്ഞൾ', chip_neem:'🌿 വേപ്പ്', chip_tulsi:'🌱 തുളസി',
+      chip_aloe:'💚 കറ്റാർ വാഴ', chip_ginger:'🫚 ഇഞ്ചി', chip_curry:'🍃 കറിവേപ്പില',
+      welcome_title:'നമസ്കാരം! AyurAid-ലേക്ക് സ്വാഗതം',
+      welcome_desc:'കേരളത്തിന്റെ ആയുർവേദ ജ്ഞാനത്തിൽ പ്രവർത്തിക്കുന്ന നിങ്ങളുടെ AI ഔഷധ വഴികാട്ടിയാണ് ഞാൻ. ടൈപ്പ് ചെയ്യൂ അല്ലെങ്കിൽ 🎙️ ടാപ്പ് ചെയ്യൂ.',
+      try_asking:'ഇങ്ങനെ ചോദിക്കൂ…',
+      q1:'🩹 എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്',
+      q2:'🤒 എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്',
+      q3:'🌡️ ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു',
+      q4:'🤢 ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു',
+      placeholder:'നിങ്ങളുടെ രോഗലക്ഷണം ഇവിടെ ടൈപ്പ് ചെയ്യൂ…',
+      disclaimer:'⚕️ ചെറിയ പ്രഥമ ശുശ്രൂഷ മാർഗ്ഗനിർദ്ദേശത്തിന് മാത്രം. ഗുരുതരമായ ലക്ഷണങ്ങൾക്ക് എപ്പോഴും ഡോക്ടറെ കാണുക.',
+      you_label:'നിങ്ങൾ',
+      prepare_label:'🌿 എങ്ങനെ തയ്യാറാക്കാം',
     }
   };
 
+  /* ── Preparation steps DB (local, shown instantly) ── */
+  const prepSteps = {
+    en: {
+      turmeric: ["Take 1 teaspoon of turmeric powder.", "Add 2–3 drops of coconut oil or plain water.", "Mix into a thick paste.", "Apply gently over the wound or affected area.", "Cover loosely with a clean cloth if needed."],
+      neem:     ["Take 10–12 fresh neem leaves.", "Boil in 1 cup of water for 5 minutes.", "Let cool to room temperature.", "Strain and use the water to wash the affected skin area.", "Pat dry gently. Repeat 2× daily."],
+      tulsi:    ["Take 8–10 fresh tulsi (holy basil) leaves.", "Add a small piece of ginger (half inch).", "Boil both in 1 cup of water for 5–7 minutes.", "Strain, add a tiny pinch of black pepper if available.", "Sip warm. Have up to 2 cups per day."],
+      aloe:     ["Choose a thick, mature aloe vera leaf.", "Cut a 3–4 inch piece from the outer leaf.", "Slit it open lengthwise to expose the gel.", "Scoop out the clear gel with a spoon.", "Apply directly to the rash, burn, or irritated skin."],
+      ginger:   ["Cut a small fresh piece of ginger (1 inch).", "You can chew it directly with a pinch of rock salt for quick relief.", "OR: Boil sliced ginger in 1 cup of water for 5 minutes.", "Strain, optionally add a little honey or lemon.", "Sip warm slowly."],
+      curry:    ["Take 10–15 fresh curry leaves.", "Wash them well.", "Chew them directly in the morning on an empty stomach.", "OR: Boil in 1 cup of water for 5 minutes, strain, and sip warm."]
+    },
+    ml: {
+      turmeric: ["ഒരു ടീസ്പൂൺ മഞ്ഞൾ പൊടി എടുക്കുക.", "2–3 തുള്ളി വെളിച്ചെണ്ണ അല്ലെങ്കിൽ വെള്ളം ചേർക്കുക.", "കട്ടിയുള്ള പേസ്റ്റ് ആക്കുക.", "മുറിവ് അല്ലെങ്കിൽ ബാധിത ഭാഗത്ത് മൃദുവായി പുരട്ടുക.", "ആവശ്യമെങ്കിൽ ശുദ്ധമായ തുണി കൊണ്ട് മൂടുക."],
+      neem:     ["10–12 വേപ്പില എടുക്കുക.", "1 കപ്പ് വെള്ളത്തിൽ 5 മിനിറ്റ് തിളപ്പിക്കുക.", "തണുക്കാൻ അനുവദിക്കുക.", "അരിച്ചെടുത്ത് ബാധിത ചർമ്മ ഭാഗം കഴുകുക.", "മൃദുവായി തുടക്കുക. ദിവസം 2 തവണ ചെയ്യാം."],
+      tulsi:    ["8–10 തുളസി ഇല എടുക്കുക.", "അര ഇഞ്ച് ഇഞ്ചി കൂടി ചേർക്കുക.", "1 കപ്പ് വെള്ളത്തിൽ 5–7 മിനിറ്റ് തിളപ്പിക്കുക.", "അരിച്ചെടുക്കുക, ആഗ്രഹിച്ചാൽ ഒരു നുള്ള് കുരുമുളക് ചേർക്കാം.", "ചൂടോടെ ഒറ്റിക്കുടിക്കുക. ദിവസം 2 കപ്പ് വരെ കുടിക്കാം."],
+      aloe:     ["ഒരു വലിയ കറ്റാർ വാഴ ഇല തിരഞ്ഞെടുക്കുക.", "3–4 ഇഞ്ച് ഒരു കഷണം മുറിക്കുക.", "നീളത്തിൽ കൂടി വെട്ടിത്തുറക്കുക.", "ഒരു സ്പൂൺ ഉപയോഗിച്ച് ജെൽ എടുക്കുക.", "റാഷ്, പൊള്ളൽ, ചൊറിച്ചിൽ ഭാഗത്ത് നേരിട്ട് പുരട്ടുക."],
+      ginger:   ["1 ഇഞ്ച് ഇഞ്ചി കഷണം എടുക്കുക.", "ഒരു നുള്ള് ഉപ്പോടൊപ്പം നേരിട്ട് ചവയ്ക്കാം.", "അല്ലെങ്കിൽ: 1 കപ്പ് വെള്ളത്തിൽ ഇഞ്ചി ചേർത്ത് 5 മിനിറ്റ് തിളപ്പിക്കുക.", "അരിച്ചെടുക്കുക, തേൻ അല്ലെങ്കിൽ നാരങ്ങ ചേർക്കാം.", "ചൂടോടെ സ천കം കുടിക്കുക."],
+      curry:    ["10–15 കറിവേപ്പില നന്നായി കഴുകുക.", "രാവിലെ വെറും വയറ്റിൽ ചവയ്ക്കാം.", "അല്ലെങ്കിൽ: 1 കപ്പ് വെള്ളത്തിൽ 5 മിനിറ്റ് തിളപ്പിക്കുക, അരിച്ചെടുത്ത് ചൂടോടെ കുടിക്കുക."]
+    }
+  };
+
+  /* ── Herb keyword map for detecting which herb AI mentioned ── */
+  const herbKeywords = {
+    turmeric: ['turmeric','manjal','haridra','മഞ്ഞൾ'],
+    neem:     ['neem','veppu','nimba','വേപ്പ്'],
+    tulsi:    ['tulsi','thulasi','holy basil','തുളസി'],
+    aloe:     ['aloe','kattarvazha','kumari','കറ്റാർ','aloe vera'],
+    ginger:   ['ginger','inji','ardraka','ഇഞ്ചി'],
+    curry:    ['curry leaf','kariveppila','curry leaves','കറിവേപ്പ'],
+  };
+
+  function detectHerbFromText(text) {
+    const lower = text.toLowerCase();
+    for (const key in herbKeywords) {
+      if (herbKeywords[key].some(k => lower.includes(k))) return key;
+    }
+    return null;
+  }
+
+  /* ── Apply i18n ── */
   function applyLang(lang) {
     const t = i18n[lang];
-    // Update all tagged elements
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (t[key] !== undefined) el.innerHTML = t[key];
     });
-    // Update placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
       if (t[key] !== undefined) el.placeholder = t[key];
     });
-    // Update quick-btn onclick targets for Malayalam questions
-    const quickBtns = document.querySelectorAll('.quick-btn');
-    const qKeys = ['q1','q2','q3','q4'];
-    const mlQueries = [
-      'എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്',
-      'എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്',
-      'ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു',
-      'ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു'
-    ];
-    const enQueries = [
-      'I have a small cut on my finger',
-      'I have a headache and mild fever',
-      'My skin is irritated from a rash',
-      'I feel nauseous after eating'
-    ];
-    quickBtns.forEach((btn, i) => {
-      const query = lang === 'ml' ? mlQueries[i] : enQueries[i];
-      btn.onclick = () => sendQuick(query);
+    // quick btns - update display text only (prompts stored in data-prompt-en/ml)
+    const enQ = ['🩹 I have a small cut on my finger','🤒 I have a headache and mild fever','🌡️ My skin is irritated from a rash','🤢 I feel nauseous after eating'];
+    const mlQ = ['🩹 എന്റെ വിരലിൽ ചെറിയ മുറിവ് ഉണ്ട്','🤒 എനിക്ക് തലവേദനയും നേരിയ പനിയും ഉണ്ട്','🌡️ ചൊറിച്ചിലുണ്ടായി ത്വക്ക് ചൊറിയുന്നു','🤢 ഭക്ഷണം കഴിച്ചതിനു ശേഷം ഓക്കാനം തോന്നുന്നു'];
+    document.querySelectorAll('.quick-btn').forEach((btn, i) => {
+      btn.textContent = lang === 'ml' ? mlQ[i] : enQ[i];
     });
-    // Update chip onclick targets for Malayalam herb asks
-    const chipKeys = ['chip_turmeric','chip_neem','chip_tulsi','chip_aloe','chip_ginger','chip_curry'];
-    const herbs = lang === 'ml'
-      ? ['മഞ്ഞൾ (Manjal)', 'വേപ്പ് (Veppu)', 'തുളസി (Thulasi)', 'കറ്റാർ വാഴ (Kattarvazha)', 'ഇഞ്ചി (Inji)', 'കറിവേപ്പില (Kariveppila)']
-      : ['Turmeric (Manjal)', 'Neem (Veppu)', 'Tulsi (Thulasi)', 'Aloe Vera (Kattarvazha)', 'Ginger (Inji)', 'Curry Leaf (Kariveppila)'];
+    // chips
+    const mlHerbs = ['🟡 മഞ്ഞൾ','🌿 വേപ്പ്','🌱 തുളസി','💚 കറ്റാർ വാഴ','🫚 ഇഞ്ചി','🍃 കറിവേപ്പില'];
+    const enHerbs = ['🟡 Turmeric','🌿 Neem','🌱 Tulsi','💚 Aloe Vera','🫚 Ginger','🍃 Curry Leaf'];
     document.querySelectorAll('.chip').forEach((chip, i) => {
-      chip.onclick = () => askAbout(herbs[i]);
+      chip.textContent = lang === 'ml' ? mlHerbs[i] : enHerbs[i];
     });
-    // html lang attribute
     document.documentElement.lang = lang === 'ml' ? 'ml' : 'en';
   }
 
@@ -658,119 +700,107 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-ml').classList.toggle('active', lang === 'ml');
     applyLang(lang);
+    if (recognition) recognition.lang = lang === 'ml' ? 'ml-IN' : 'en-IN';
   }
 
-  // Wire lang buttons
-  document.getElementById('btn-en').addEventListener('click', function() { setLang('en'); });
-  document.getElementById('btn-ml').addEventListener('click', function() { setLang('ml'); });
+  /* ── Voice TTS ── */
+  function speak(text) {
+    if (!voiceOn || !('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = currentLang === 'ml' ? 'ml-IN' : 'en-IN';
+    u.rate = 0.92;
+    window.speechSynthesis.speak(u);
+  }
 
-  // Wire quick-btns and chips via delegation
-  document.getElementById('messages').addEventListener('click', function() {});
+  /* ── Speech Recognition ── */
+  function setupSpeechRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      document.getElementById('mic-btn').disabled = true;
+      document.getElementById('mic-btn').title = 'Voice not supported in this browser';
+      return;
+    }
+    recognition = new SR();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-IN';
 
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      document.getElementById('user-input').value = transcript;
+      stopListeningUI();
+      setTimeout(() => sendMessage(), 200);
+    };
+    recognition.onerror = () => stopListeningUI();
+    recognition.onend   = () => stopListeningUI();
+  }
+
+  function startListeningUI() {
+    listening = true;
+    const mic = document.getElementById('mic-btn');
+    mic.classList.add('active');
+    mic.textContent = '■';
+    document.getElementById('input-wrap').classList.add('listening');
+    document.getElementById('user-input').placeholder = currentLang === 'ml' ? 'കേൾക്കുന്നു…' : 'Listening…';
+  }
+
+  function stopListeningUI() {
+    listening = false;
+    const mic = document.getElementById('mic-btn');
+    mic.classList.remove('active');
+    mic.textContent = '🎙️';
+    document.getElementById('input-wrap').classList.remove('listening');
+    document.getElementById('user-input').placeholder = i18n[currentLang].placeholder;
+  }
+
+  function toggleListen() {
+    if (!recognition) return;
+    if (listening) {
+      recognition.stop();
+      stopListeningUI();
+    } else {
+      try {
+        recognition.lang = currentLang === 'ml' ? 'ml-IN' : 'en-IN';
+        recognition.start();
+        startListeningUI();
+      } catch(e) { stopListeningUI(); }
+    }
+  }
+
+  /* ── UI helpers ── */
   function autoResize(el) {
     el.style.height = 'auto';
     el.style.height = Math.min(el.scrollHeight, 100) + 'px';
   }
 
-  function handleKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
+  function scrollBottom() {
+    const msgs = document.getElementById('messages');
+    setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 60);
   }
 
-  function sendQuick(text) {
-    document.getElementById('user-input').value = text;
-    sendMessage();
+  function escapeHtml(text) {
+    return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  function askAbout(herb) {
-    sendQuick('Tell me about ' + herb + ' in the AyurAid kit — what is it used for and how do I apply it?');
-  }
-
-  async function sendMessage() {
-    const input = document.getElementById('user-input');
-    const text = input.value.trim();
-    if (!text) return;
-
-    addUserMessage(text);
-    input.value = '';
-    input.style.height = 'auto';
-
-    const sendBtn = document.getElementById('send-btn');
-    sendBtn.disabled = true;
-
-    const typingId = showTyping();
-
-    try {
-      const response = await callGroq(text);
-      removeTyping(typingId);
-      addBotMessage(response);
-    } catch (err) {
-      removeTyping(typingId);
-      addBotMessage("⚠️ Error: " + err.message + ". Please check your Grok API key and try again.");
-    }
-
-    sendBtn.disabled = false;
-  }
-
-  async function callGroq(userText) {
-    const langInstruction = currentLang === 'ml'
-      ? 'Please respond in Malayalam (മലയാളം).'
-      : 'Please respond in English.';
-
-    const systemPrompt = `You are AyurAid, an AI-powered Ayurvedic herbal first aid assistant.
-Your AyurAid kit contains these herbs: Turmeric (Manjal) for cuts/wounds/inflammation, Neem (Veppu) for skin infections/rashes, Tulsi (Thulasi) for cold/cough/fever, Aloe Vera (Kattarvazha) for burns/sunburn/skin soothing, Ginger (Inji) for nausea/indigestion/joint pain, Curry Leaf (Kariveppila) for hair loss/eye health/diabetes support, and Herbal Balm for cuts/skin.
-
-When a user describes a symptom:
-1. Greet warmly and acknowledge their symptom
-2. Recommend the most appropriate herb(s) from the kit with their Malayalam name in brackets
-3. Give clear step-by-step instructions on how to prepare and apply it
-4. Include a caution: mention when to see a doctor instead
-5. Keep responses concise, shorter, caring, practical and keep it within eight lines
-6. Use simple language
-7. Do not suggest boiling and crushing fresh roots or leaves.
-
-${langInstruction}`;
-
-    const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
-
-    const body = {
-      model: 'llama-3.1-8b-instant',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userText }
-      ],
-      temperature: 0.7,
-      max_tokens: 600
-    };
-
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + API_KEY
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || 'API request failed (status ' + res.status + ')');
-    }
-
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || 'No response received.';
+  function formatResponse(text) {
+    let html = escapeHtml(text);
+    html = html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    html = html.replace(/^[\u2022\-] (.+)$/gm,'<li>$1</li>');
+    html = html.replace(/(<li>[\s\S]*?<\/li>)+/g,'<ul style="padding-left:16px;margin:6px 0">$&</ul>');
+    html = html.replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+    html = html.replace(/\n\n/g,'</p><p style="margin-top:8px">');
+    html = html.replace(/\n/g,'<br>');
+    return '<p>' + html + '</p>';
   }
 
   function addUserMessage(text) {
+    document.getElementById('welcome-card').style.display = 'none';
     const msgs = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'msg user';
-    div.innerHTML = `
-      <div class="msg-label">${i18n[currentLang].you_label}</div>
-      <div class="bubble">${escapeHtml(text)}</div>
-    `;
+    div.innerHTML = `<div class="msg-label">${i18n[currentLang].you_label}</div><div class="bubble">${escapeHtml(text)}</div>`;
     msgs.appendChild(div);
     scrollBottom();
   }
@@ -779,41 +809,38 @@ ${langInstruction}`;
     const msgs = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'msg bot';
+
+    const herbKey = detectHerbFromText(text);
+    const steps = herbKey ? (prepSteps[currentLang][herbKey] || prepSteps.en[herbKey]) : null;
+
+    let prepareHtml = '';
+    if (steps) {
+      const label = i18n[currentLang].prepare_label;
+      const stepsHtml = steps.map(s => `<li>${escapeHtml(s)}</li>`).join('');
+      prepareHtml = `
+        <div class="prepare-card">
+          <button class="prepare-toggle" onclick="togglePrepare(this)">
+            ${label}
+            <span class="chevron">▼</span>
+          </button>
+          <div class="prepare-body">
+            <ol class="prepare-steps">${stepsHtml}</ol>
+          </div>
+        </div>`;
+    }
+
     div.innerHTML = `
       <div class="msg-label">🌿 AyurAid</div>
-      <div class="bubble">${formatResponse(text)}</div>
-    `;
+      <div class="bubble">${formatResponse(text)}${prepareHtml}</div>`;
     msgs.appendChild(div);
     scrollBottom();
+    speak(text.replace(/<[^>]+>/g,''));
   }
 
-  function formatResponse(text) {
-    // Format markdown-like text into HTML
-    let html = escapeHtml(text);
-
-    // Bold (**text**)
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    // Italic (*text*)
-    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    // Bullet points
-    html = html.replace(/^[\u2022\-\*] (.+)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.*<\/li>)/gs, '<ul style="padding-left:16px;margin:6px 0">$1</ul>');
-    // Numbered steps
-    html = html.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-    // Line breaks
-    html = html.replace(/\n\n/g, '</p><p style="margin-top:8px">');
-    html = html.replace(/\n/g, '<br>');
-
-    return '<p>' + html + '</p>';
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
+  window.togglePrepare = function(btn) {
+    btn.classList.toggle('open');
+    btn.nextElementSibling.classList.toggle('open');
+  };
 
   function showTyping() {
     const msgs = document.getElementById('messages');
@@ -821,14 +848,10 @@ ${langInstruction}`;
     const div = document.createElement('div');
     div.className = 'msg bot';
     div.id = id;
-    div.innerHTML = `
-      <div class="msg-label">🌿 AyurAid</div>
+    div.innerHTML = `<div class="msg-label">🌿 AyurAid</div>
       <div class="typing-indicator">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-      </div>
-    `;
+        <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+      </div>`;
     msgs.appendChild(div);
     scrollBottom();
     return id;
@@ -839,19 +862,110 @@ ${langInstruction}`;
     if (el) el.remove();
   }
 
-  function scrollBottom() {
-    const msgs = document.getElementById('messages');
-    setTimeout(() => msgs.scrollTop = msgs.scrollHeight, 50);
+  /* ── Groq API ── */
+  async function callGroq(userText) {
+    const langInstruction = currentLang === 'ml'
+      ? 'Please respond in Malayalam (മലയാളം).'
+      : 'Please respond in English.';
+
+    const systemPrompt = `You are AyurAid, an AI-powered Ayurvedic herbal first aid assistant for Kerala school students.
+Your AyurAid kit contains: Turmeric (Manjal/Haridra) for cuts/wounds/inflammation, Neem (Veppu/Nimba) for skin infections/rashes, Tulsi (Thulasi/Holy Basil) for cold/cough/fever, Aloe Vera (Kattarvazha/Kumari) for burns/sunburn/skin soothing, Ginger (Inji/Ardraka) for nausea/indigestion, Curry Leaf (Kariveppila) for hair/stomach.
+
+When responding:
+1. Warmly acknowledge the symptom
+2. Recommend the best herb(s) with Malayalam name in brackets
+3. Give brief instructions (3–5 lines max)
+4. Add ONE caution line: when to see a doctor
+5. Keep it under 8 lines total, caring and simple
+6. Do NOT say to crush/boil fresh roots — the student will see preparation steps separately
+
+${langInstruction}`;
+
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + GROQ_API_KEY },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userText }],
+        temperature: 0.7,
+        max_tokens: 500
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || 'API error ' + res.status);
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || 'No response received.';
   }
 
-  // Expose to global scope for inline onclick handlers
-  window.sendMessage = sendMessage;
-  window.sendQuick = sendQuick;
-  window.askAbout = askAbout;
-  window.autoResize = autoResize;
-  window.handleKey = handleKey;
+  /* ── Send ── */
+  async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const text = input.value.trim();
+    if (!text) return;
 
-}); // end DOMContentLoaded
+    addUserMessage(text);
+    input.value = '';
+    input.style.height = 'auto';
+    document.getElementById('send-btn').disabled = true;
+
+    const typingId = showTyping();
+    try {
+      const response = await callGroq(text);
+      removeTyping(typingId);
+      addBotMessage(response);
+    } catch (err) {
+      removeTyping(typingId);
+      addBotMessage('⚠️ ' + err.message);
+    }
+    document.getElementById('send-btn').disabled = false;
+  }
+
+  /* ── Event wiring ── */
+  document.getElementById('send-btn').addEventListener('click', sendMessage);
+  document.getElementById('mic-btn').addEventListener('click', toggleListen);
+  document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
+  document.getElementById('btn-ml').addEventListener('click', () => setLang('ml'));
+
+  document.getElementById('btn-voice').addEventListener('click', function () {
+    voiceOn = !voiceOn;
+    this.classList.toggle('active', voiceOn);
+    this.textContent = voiceOn ? '🔊' : '🔇';
+    if (!voiceOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+  });
+
+  document.getElementById('user-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+  document.getElementById('user-input').addEventListener('input', function () { autoResize(this); });
+
+  document.querySelectorAll('.quick-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const prompt = currentLang === 'ml'
+        ? btn.getAttribute('data-prompt-ml')
+        : btn.getAttribute('data-prompt-en');
+      document.getElementById('user-input').value = prompt;
+      sendMessage();
+    });
+  });
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const herb = chip.getAttribute('data-herb');
+      document.getElementById('user-input').value =
+        currentLang === 'ml'
+          ? herb + ' എന്ന ഔഷധത്തെ കുറിച്ച് പറയൂ — ഉപയോഗം എന്ത്?'
+          : 'Tell me about ' + herb + ' — what is it used for and how do I use it?';
+      sendMessage();
+    });
+  });
+
+  setupSpeechRecognition();
+  applyLang('en');
+});
 </script>
 </body>
 </html>
