@@ -541,7 +541,7 @@
       <div class="header-controls">
         <button class="ctrl-btn active" id="btn-en">EN</button>
         <button class="ctrl-btn" id="btn-ml">മലയ</button>
-        <button class="ctrl-btn active" id="btn-voice" title="Toggle voice replies">🔊</button>
+        
       </div>
     </div>
   </div>
@@ -591,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const GROQ_API_KEY = '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';
   let currentLang = 'en';
-  let voiceOn = true;
+  let voiceOn = false;
   let listening = false;
   let recognition = null;
 
@@ -834,7 +834,6 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="bubble">${formatResponse(text)}${prepareHtml}</div>`;
     msgs.appendChild(div);
     scrollBottom();
-    speak(text.replace(/<[^>]+>/g,''));
   }
 
   window.togglePrepare = function(btn) {
@@ -929,13 +928,6 @@ ${langInstruction}`;
   document.getElementById('mic-btn').addEventListener('click', toggleListen);
   document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
   document.getElementById('btn-ml').addEventListener('click', () => setLang('ml'));
-
-  document.getElementById('btn-voice').addEventListener('click', function () {
-    voiceOn = !voiceOn;
-    this.classList.toggle('active', voiceOn);
-    this.textContent = voiceOn ? '🔊' : '🔇';
-    if (!voiceOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
-  });
 
   document.getElementById('user-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
