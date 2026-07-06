@@ -150,7 +150,7 @@ body{
   flex-shrink:0;
 }
 .home-header::before{
-  content:''
+  content:'';
   position:absolute;
   top:-40px;right:-40px;
   width:160px;height:160px;
@@ -1852,6 +1852,193 @@ const staticText = {
   }
 };
 
+
+const deepText = {
+  en: {
+    learnBodies: [
+      `<p>Ayurveda is one of the world's oldest holistic healing systems, developed in India over 5,000 years ago. The word comes from Sanskrit: <strong>Ayur</strong> (life) + <strong>Veda</strong> (knowledge).</p>
+       <p>It is based on the belief that health and wellness depend on a balance between mind, body, and spirit. Unlike modern medicine which focuses on treating disease, Ayurveda focuses on preventing it.</p>
+       <div class="highlight-box">🌍 Ayurveda is recognized by the World Health Organization (WHO) as a traditional system of medicine.</div>`,
+      `<p>Ayurveda identifies three biological energies called <strong>Doshas</strong> that govern our body and mind:</p>
+       <ul>
+        <li><strong>Vata (Air + Space):</strong> Controls movement, breathing, circulation. When imbalanced: anxiety, dry skin, constipation.</li>
+        <li><strong>Pitta (Fire + Water):</strong> Controls digestion, metabolism, intelligence. When imbalanced: anger, inflammation, acidity.</li>
+        <li><strong>Kapha (Earth + Water):</strong> Controls structure, immunity, stability. When imbalanced: weight gain, congestion, laziness.</li>
+       </ul>
+       <div class="highlight-box">Everyone has a unique mix of all three doshas — knowing yours helps maintain balance through diet, herbs, and lifestyle.</div>`,
+      `<p>Modern science has confirmed many Ayurvedic claims through research:</p>
+       <ul>
+        <li><strong>Turmeric (Curcumin):</strong> Proven anti-inflammatory and antimicrobial properties in hundreds of studies.</li>
+        <li><strong>Tulsi:</strong> Shown to reduce cortisol and support immune function.</li>
+        <li><strong>Ginger:</strong> Clinically proven to reduce nausea, especially motion sickness.</li>
+        <li><strong>Neem:</strong> Proven antibacterial and antifungal — used in modern toothpastes and skincare.</li>
+       </ul>
+       <div class="highlight-box">💡 Ayurveda complements — but does not replace — modern medicine. Always see a doctor for serious conditions.</div>`,
+      `<p>Kerala is globally recognized as the heartland of authentic Ayurvedic practice. The state's tropical climate, heavy rainfall, and rich biodiversity make it ideal for growing medicinal plants.</p>
+       <ul>
+        <li>Kerala has many Ayurvedic hospitals and traditional practitioners.</li>
+        <li>Kerala is known for Panchakarma and traditional herbal treatments.</li>
+        <li>Many Kerala homes still use simple remedies like turmeric milk, tulsi tea, and ginger for digestion.</li>
+       </ul>
+       <div class="highlight-box">🏡 AyurAid connects this traditional household knowledge with modern AI guidance.</div>`,
+      `<p>Herbal remedies work well for <strong>minor, everyday ailments</strong>. Knowing when to use them — and when not to — is essential.</p>
+       <ul>
+        <li>✅ <strong>Use herbs for:</strong> Minor cuts, mild rashes, nausea, indigestion, cough/cold</li>
+        <li>❌ <strong>See a doctor for:</strong> Deep wounds, high fever, severe allergy, chest pain, breathing difficulty, or symptoms lasting more than 3 days</li>
+       </ul>
+       <div class="highlight-box">⚕️ AyurAid is a first aid guide. It does not replace professional medical advice.</div>`,
+      `<p>Every herb in your AyurAid kit contains specific <strong>active compounds</strong> that create healing effects:</p>
+       <ul>
+        <li><strong>Turmeric → Curcumin:</strong> Helps reduce inflammation and fight microbes</li>
+        <li><strong>Ginger → Gingerols:</strong> Supports digestion and helps nausea</li>
+        <li><strong>Tulsi → Eugenol:</strong> Supports cough, cold, and immunity</li>
+        <li><strong>Aloe Vera → Cooling gel:</strong> Soothes burns and skin irritation</li>
+        <li><strong>Neem → Nimbin:</strong> Antifungal and antibacterial properties</li>
+       </ul>`
+    ],
+    kit: {
+      turmeric: {
+        uses:['✂️ Cuts & Wounds','🔥 Inflammation','🦠 Infection','💛 Skin glow'],
+        how:'Apply a paste of turmeric powder with 2–3 drops of coconut oil directly on cuts or wounds. It is antiseptic and helps stop minor bleeding.',
+        steps:['Take 1 teaspoon of turmeric powder','Add 2–3 drops of coconut oil or plain water','Mix into a thick paste','Apply gently over the wound or affected area','Cover loosely with a clean cloth if needed'],
+        caution:"⚠️ Stains skin and cloth. Do not apply on deep wounds. See a doctor if bleeding doesn't stop."
+      },
+      neem: {
+        uses:['🧴 Skin Infections','🌡️ Rashes','😤 Pimples / Acne','🦷 Oral health'],
+        how:'Boil neem leaves and use the cooled water to wash infected skin, pimples, or minor wounds. Strong antibacterial and antifungal properties.',
+        steps:['Take 10–12 fresh neem leaves','Boil in 1 cup of water for 5 minutes','Let it cool to room temperature','Strain and use the water to wash the affected skin area','Pat dry gently. Repeat twice daily'],
+        caution:'⚠️ For external use only in first aid. Bitter taste — not for internal use without guidance.'
+      },
+      tulsi: {
+        uses:['🤒 Mild Fever','😷 Cough & Cold','😤 Sore Throat','🧠 Stress relief'],
+        how:'Boil 8–10 tulsi leaves with ginger in a cup of water, strain and sip warm. Eases headache, mild fever, cough and cold.',
+        steps:['Take 8–10 fresh tulsi leaves','Add a small piece of ginger','Boil both in 1 cup of water for 5–7 minutes','Strain, add a pinch of black pepper if available','Sip warm — up to 2 cups per day'],
+        caution:'⚠️ Avoid during pregnancy. Consult a doctor before surgery.'
+      },
+      aloe: {
+        uses:['🔥 Minor Burns','☀️ Sunburn','🌡️ Skin Rash','💆 Soothing'],
+        how:'Slit a fresh aloe vera leaf and apply the cool gel directly on the rash or burn. Soothes irritation and speeds healing.',
+        steps:['Choose a thick, mature aloe vera leaf','Cut a 3–4 inch piece from the outer leaf','Slit it open lengthwise to expose the gel','Scoop out the clear gel with a spoon','Apply directly to the burn, rash, or irritated skin'],
+        caution:'⚠️ Patch-test first if you have sensitive skin. Use only the clear gel — avoid the yellow latex layer.'
+      },
+      ginger: {
+        uses:['🤢 Nausea','🍽️ Indigestion','💨 Gas / Bloating','🚗 Motion sickness'],
+        how:'Chew a small piece of fresh ginger with a pinch of rock salt, or sip ginger tea. Relieves nausea, gas and indigestion.',
+        steps:['Cut a 1-inch piece of fresh ginger','Chew directly with a pinch of rock salt for quick relief, OR','Boil sliced ginger in 1 cup of water for 5 minutes','Strain, add honey or lemon if preferred','Sip warm slowly'],
+        caution:'⚠️ Avoid large doses if on blood thinners or before surgery.'
+      },
+      curry: {
+        uses:['💇 Hair Loss','👁️ Eye Health','🩸 Blood Sugar','🤢 Mild Diarrhoea'],
+        how:'Chew a few fresh curry leaves in the morning, or boil with water and sip. Helps with mild diarrhoea and nausea. Rich in antioxidants.',
+        steps:['Take 10–15 fresh curry leaves','Wash them well under clean water','Chew directly on an empty stomach in the morning, OR','Boil in 1 cup of water for 5 minutes','Strain and sip warm'],
+        caution:'⚠️ Use fresh leaves only. Dried leaves have reduced potency.'
+      }
+    }
+  },
+  ml: {
+    learnBodies: [
+      `<p>ആയുർവേദം ലോകത്തിലെ ഏറ്റവും പഴക്കമുള്ള സമഗ്ര ചികിത്സാ രീതികളിൽ ഒന്നാണ്. ഇത് ഇന്ത്യയിൽ 5,000 വർഷത്തിലധികമായി നിലനിൽക്കുന്ന അറിവാണ്. സംസ്കൃതത്തിലെ <strong>ആയുർ</strong> (ജീവിതം) + <strong>വേദം</strong> (അറിവ്) എന്നീ വാക്കുകളിൽ നിന്നാണ് ആയുർവേദം എന്ന പേര് ഉണ്ടായത്.</p>
+       <p>ശരീരം, മനസ്സ്, ആത്മാവ് എന്നിവയുടെ സമതുലിതാവസ്ഥയാണ് ആരോഗ്യത്തിന്റെ അടിസ്ഥാനം എന്നാണ് ആയുർവേദം പറയുന്നത്. രോഗം വന്നതിന് ശേഷം മാത്രം ചികിത്സിക്കാതെ, രോഗം വരാതിരിക്കാൻ ശ്രദ്ധിക്കുന്നതിലാണ് ആയുർവേദം കൂടുതൽ ശ്രദ്ധ നൽകുന്നത്.</p>
+       <div class="highlight-box">🌍 ആയുർവേദം ഒരു പ്രധാന പാരമ്പര്യ ചികിത്സാ രീതിയായി ലോകമെമ്പാടും അറിയപ്പെടുന്നു.</div>`,
+      `<p>ആയുർവേദത്തിൽ ശരീരത്തെയും മനസ്സിനെയും നിയന്ത്രിക്കുന്ന മൂന്ന് പ്രധാന ഊർജ്ജങ്ങളെയാണ് <strong>ദോഷങ്ങൾ</strong> എന്ന് വിളിക്കുന്നത്:</p>
+       <ul>
+        <li><strong>വാതം:</strong> ചലനം, ശ്വാസം, രക്തപ്രവാഹം എന്നിവയുമായി ബന്ധപ്പെട്ടത്. അസമതുലിതമായാൽ ഉത്കണ്ഠ, വരണ്ട ചർമ്മം, മലബന്ധം എന്നിവ വരാം.</li>
+        <li><strong>പിത്തം:</strong> ദഹനം, ചൂട്, ബുദ്ധി എന്നിവയുമായി ബന്ധപ്പെട്ടത്. അസമതുലിതമായാൽ അമ്ലത, കോപം, അണുബാധ/വീക്കം എന്നിവ വരാം.</li>
+        <li><strong>കഫം:</strong> ശരീര ഘടന, പ്രതിരോധശേഷി, സ്ഥിരത എന്നിവയുമായി ബന്ധപ്പെട്ടത്. അസമതുലിതമായാൽ ഭാരക്കൂടുതൽ, കഫക്കെട്ട്, മന്ദത എന്നിവ വരാം.</li>
+       </ul>
+       <div class="highlight-box">ഓരോരുത്തരിലും ഈ മൂന്ന് ദോഷങ്ങളും വ്യത്യസ്ത അളവിൽ കാണാം. അത് മനസ്സിലാക്കുന്നത് ആരോഗ്യകരമായ ജീവിതത്തിന് സഹായിക്കും.</div>`,
+      `<p>ആയുർവേദത്തിലെ പല ഔഷധ സസ്യങ്ങളെയും കുറിച്ച് ആധുനിക ശാസ്ത്രവും പഠനങ്ങൾ നടത്തിയിട്ടുണ്ട്:</p>
+       <ul>
+        <li><strong>മഞ്ഞൾ:</strong> അണുബാധയും വീക്കവും കുറയ്ക്കാൻ സഹായിക്കുന്ന കർക്കുമിൻ അടങ്ങിയിരിക്കുന്നു.</li>
+        <li><strong>തുളസി:</strong> പ്രതിരോധശേഷിക്കും ചുമ/ജലദോഷത്തിനും സഹായകമായി ഉപയോഗിക്കുന്നു.</li>
+        <li><strong>ഇഞ്ചി:</strong> ഓക്കാനം, ദഹനക്കേട് എന്നിവയിൽ സഹായകരമാണ്.</li>
+        <li><strong>വേപ്പ്:</strong> ആന്റിബാക്ടീരിയൽ, ആന്റിഫംഗൽ ഗുണങ്ങളാൽ ചർമ്മപരിചരണത്തിൽ ഉപയോഗിക്കുന്നു.</li>
+       </ul>
+       <div class="highlight-box">💡 ആയുർവേദം ആധുനിക ചികിത്സയ്ക്ക് പകരമല്ല. ഗുരുതര രോഗലക്ഷണങ്ങൾ ഉണ്ടെങ്കിൽ ഡോക്ടറെ കാണണം.</div>`,
+      `<p>കേരളം ആയുർവേദത്തിന്റെ പ്രധാന കേന്ദ്രങ്ങളിലൊന്നായി ലോകത്ത് അറിയപ്പെടുന്നു. കേരളത്തിലെ കാലാവസ്ഥ, മഴ, ജൈവ വൈവിധ്യം എന്നിവ ഔഷധ സസ്യങ്ങളുടെ വളർച്ചയ്ക്ക് വളരെ അനുയോജ്യമാണ്.</p>
+       <ul>
+        <li>കേരളത്തിൽ നിരവധി ആയുർവേദ ആശുപത്രികളും വൈദ്യന്മാരും ഉണ്ട്.</li>
+        <li>പഞ്ചകർമ പോലുള്ള ചികിത്സകൾക്കായി കേരളം പ്രശസ്തമാണ്.</li>
+        <li>മഞ്ഞൾ പാൽ, തുളസി കഷായം, ഇഞ്ചി തുടങ്ങിയ വീട്ടുവൈദ്യങ്ങൾ ഇന്നും പല വീടുകളിലും ഉപയോഗിക്കുന്നു.</li>
+       </ul>
+       <div class="highlight-box">🏡 ഈ പാരമ്പര്യ അറിവിനെ AI സഹായത്തോടെ കൂടുതൽ എളുപ്പമാക്കുകയാണ് AyurAid.</div>`,
+      `<p><strong>ചെറിയ ദൈനംദിന പ്രശ്നങ്ങൾക്ക്</strong> ഹെർബൽ പരിഹാരങ്ങൾ സഹായകരമാകാം. എന്നാൽ എപ്പോൾ ഉപയോഗിക്കണം, എപ്പോൾ ഡോക്ടറെ കാണണം എന്നത് അറിയണം.</p>
+       <ul>
+        <li>✅ <strong>ഉപയോഗിക്കാവുന്നത്:</strong> ചെറിയ മുറിവുകൾ, ചെറിയ ചൊറിച്ചിൽ, ഓക്കാനം, ദഹനക്കേട്, ചുമ/ജലദോഷം</li>
+        <li>❌ <strong>ഡോക്ടറെ കാണേണ്ടത്:</strong> ആഴത്തിലുള്ള മുറിവ്, ഉയർന്ന പനി, ഗുരുതര അലർജി, നെഞ്ചുവേദന, ശ്വാസതടസ്സം, 3 ദിവസത്തിലധികം നീളുന്ന ലക്ഷണങ്ങൾ</li>
+       </ul>
+       <div class="highlight-box">⚕️ AyurAid ഒരു ഫസ്റ്റ് എയ്ഡ് ഗൈഡാണ്. ഇത് ഡോക്ടറുടെ ഉപദേശത്തിന് പകരമല്ല.</div>`,
+      `<p>AyurAid കിറ്റിലെ ഓരോ ഔഷധത്തിലും ശരീരത്തിന് ഗുണം ചെയ്യുന്ന ചില <strong>സജീവ ഘടകങ്ങൾ</strong> ഉണ്ട്:</p>
+       <ul>
+        <li><strong>മഞ്ഞൾ → കർക്കുമിൻ:</strong> വീക്കം കുറയ്ക്കാനും അണുക്കൾക്കെതിരെ സഹായിക്കാനും ഉപയോഗിക്കുന്നു.</li>
+        <li><strong>ഇഞ്ചി → ജിംജറോൾ:</strong> ദഹനത്തിനും ഓക്കാനത്തിനും സഹായിക്കുന്നു.</li>
+        <li><strong>തുളസി → യൂജിനോൾ:</strong> ചുമ, ജലദോഷം, പ്രതിരോധശേഷി എന്നിവയ്ക്ക് സഹായിക്കുന്നു.</li>
+        <li><strong>കറ്റാർ വാഴ:</strong> പൊള്ളലും ചർമ്മ ചൊറിച്ചിലും ആശ്വസിപ്പിക്കുന്നു.</li>
+        <li><strong>വേപ്പ്:</strong> ആന്റിഫംഗൽ, ആന്റിബാക്ടീരിയൽ ഗുണങ്ങളുണ്ട്.</li>
+       </ul>`
+    ],
+    kit: {
+      turmeric: {
+        uses:['✂️ മുറിവുകൾ','🔥 വീക്കം','🦠 അണുബാധ','💛 ചർമ്മ തിളക്കം'],
+        how:'മഞ്ഞൾ പൊടിയിൽ 2–3 തുള്ളി വെളിച്ചെണ്ണയോ വെള്ളമോ ചേർത്ത് പേസ്റ്റ് ആക്കി ചെറിയ മുറിവിൽ മൃദുവായി പുരട്ടാം. ഇത് അണുനാശിനിയായി പ്രവർത്തിക്കുകയും ചെറിയ രക്തസ്രാവം കുറയ്ക്കാൻ സഹായിക്കുകയും ചെയ്യും.',
+        steps:['ഒരു ടീസ്പൂൺ മഞ്ഞൾ പൊടി എടുക്കുക','2–3 തുള്ളി വെളിച്ചെണ്ണ അല്ലെങ്കിൽ വെള്ളം ചേർക്കുക','കട്ടിയുള്ള പേസ്റ്റ് ആക്കുക','മുറിവ് അല്ലെങ്കിൽ ബാധിത ഭാഗത്ത് മൃദുവായി പുരട്ടുക','ആവശ്യമെങ്കിൽ ശുദ്ധമായ തുണി കൊണ്ട് മൂടുക'],
+        caution:'⚠️ മഞ്ഞൾ ചർമ്മത്തിലും തുണിയിലും കറ പകരാം. ആഴത്തിലുള്ള മുറിവിൽ ഉപയോഗിക്കരുത്. രക്തസ്രാവം നിൽക്കാത്ത പക്ഷം ഡോക്ടറെ കാണുക.'
+      },
+      neem: {
+        uses:['🧴 ചർമ്മ അണുബാധ','🌡️ റാഷ്','😤 പിമ്പിള്സ്','🦷 വായ് ശുചിത്വം'],
+        how:'വേപ്പില തിളപ്പിച്ച വെള്ളം തണുപ്പിച്ച് ബാധിച്ച ചർമ്മ ഭാഗം കഴുകാം. വേപ്പിന് ആന്റിബാക്ടീരിയൽ, ആന്റിഫംഗൽ ഗുണങ്ങളുണ്ട്.',
+        steps:['10–12 വേപ്പില എടുക്കുക','1 കപ്പ് വെള്ളത്തിൽ 5 മിനിറ്റ് തിളപ്പിക്കുക','റൂം ടെമ്പറേച്ചറിലേക്ക് തണുപ്പിക്കുക','അരിച്ചെടുത്ത് ബാധിച്ച ചർമ്മ ഭാഗം കഴുകുക','മൃദുവായി തുടയ്ക്കുക. ദിവസം രണ്ട് തവണ ആവർത്തിക്കാം'],
+        caution:'⚠️ ഫസ്റ്റ് എയ്ഡിൽ പുറം ഉപയോഗത്തിന് മാത്രം. ഡോക്ടറുടെ ഉപദേശം കൂടാതെ ഉള്ളിലേക്ക് കഴിക്കരുത്.'
+      },
+      tulsi: {
+        uses:['🤒 ചെറിയ പനി','😷 ചുമ / ജലദോഷം','😤 തൊണ്ടവേദന','🧠 മാനസിക ആശ്വാസം'],
+        how:'8–10 തുളസി ഇലയും ചെറിയ ഇഞ്ചി കഷണവും ഒരു കപ്പ് വെള്ളത്തിൽ തിളപ്പിച്ച് അരിച്ചെടുത്ത് ചൂടോടെ കുടിക്കാം. ചുമ, ജലദോഷം, ചെറിയ പനി എന്നിവയിൽ സഹായിക്കും.',
+        steps:['8–10 തുളസി ഇല എടുക്കുക','ചെറിയ ഇഞ്ചി കഷണം ചേർക്കുക','1 കപ്പ് വെള്ളത്തിൽ 5–7 മിനിറ്റ് തിളപ്പിക്കുക','അരിച്ചെടുത്ത് കുരുമുളക് ചെറിയ അളവിൽ ചേർക്കാം','ചൂടോടെ കുടിക്കുക — ദിവസം 2 കപ്പ് വരെ'],
+        caution:'⚠️ ഗർഭകാലത്ത് ഒഴിവാക്കുക. ശസ്ത്രക്രിയയ്ക്ക് മുമ്പ് ഡോക്ടറോട് ചോദിക്കുക.'
+      },
+      aloe: {
+        uses:['🔥 ചെറിയ പൊള്ളൽ','☀️ സൺബേൺ','🌡️ ചർമ്മ റാഷ്','💆 ആശ്വാസം'],
+        how:'കറ്റാർ വാഴയുടെ തണുത്ത ജെൽ പൊള്ളൽ അല്ലെങ്കിൽ ചൊറിച്ചിൽ ഉള്ള ഭാഗത്ത് മൃദുവായി പുരട്ടാം. ഇത് ചർമ്മം ആശ്വസിപ്പിക്കുകയും ശമനം നൽകുകയും ചെയ്യും.',
+        steps:['വലിയ കറ്റാർ വാഴ ഇല തിരഞ്ഞെടുക്കുക','പുറത്തെ ഇലയിൽ നിന്ന് 3–4 ഇഞ്ച് കഷണം മുറിക്കുക','നീളത്തിൽ വെട്ടി ജെൽ പുറത്തെടുക്കുക','സ്പൂൺ ഉപയോഗിച്ച് സുതാര്യ ജെൽ എടുക്കുക','പൊള്ളൽ, റാഷ്, ചൊറിച്ചിൽ ഭാഗത്ത് നേരിട്ട് പുരട്ടുക'],
+        caution:'⚠️ സെൻസിറ്റീവ് സ്കിൻ ഉള്ളവർ ആദ്യം ചെറിയ ഭാഗത്ത് പരീക്ഷിക്കുക. സുതാര്യ ജെൽ മാത്രം ഉപയോഗിക്കുക; മഞ്ഞ ലാറ്റക്സ് പാളി ഒഴിവാക്കുക.'
+      },
+      ginger: {
+        uses:['🤢 ഓക്കാനം','🍽️ ദഹനക്കേട്','💨 ഗ്യാസ് / വയറുവീക്കം','🚗 യാത്രാ ഛർദ്ദി'],
+        how:'ചെറിയ ഇഞ്ചി കഷണം ഒരു നുള്ള് ഉപ്പോടൊപ്പം ചവയ്ക്കാം, അല്ലെങ്കിൽ ഇഞ്ചി ചായ കുടിക്കാം. ഓക്കാനം, ഗ്യാസ്, ദഹനക്കേട് എന്നിവയിൽ സഹായിക്കും.',
+        steps:['1 ഇഞ്ച് ഇഞ്ചി കഷണം മുറിക്കുക','വേഗത്തിലുള്ള ആശ്വാസത്തിന് ഒരു നുള്ള് ഉപ്പോടൊപ്പം ചവയ്ക്കാം, അല്ലെങ്കിൽ','1 കപ്പ് വെള്ളത്തിൽ ഇഞ്ചി 5 മിനിറ്റ് തിളപ്പിക്കുക','അരിച്ചെടുത്ത് തേൻ അല്ലെങ്കിൽ നാരങ്ങ ചേർക്കാം','ചൂടോടെ മന്ദഗതിയിൽ കുടിക്കുക'],
+        caution:'⚠️ ബ്ലഡ് തിന്നർ മരുന്നുകൾ കഴിക്കുന്നവർ കൂടുതലായി ഉപയോഗിക്കരുത്. ശസ്ത്രക്രിയയ്ക്ക് മുമ്പ് ഒഴിവാക്കുക.'
+      },
+      curry: {
+        uses:['💇 മുടികൊഴിച്ചിൽ','👁️ കണ്ണിന്റെ ആരോഗ്യം','🩸 രക്തത്തിലെ പഞ്ചസാര','🤢 ചെറിയ വയറിളക്കം'],
+        how:'രാവിലെ കുറച്ച് കറിവേപ്പില ചവയ്ക്കാം, അല്ലെങ്കിൽ വെള്ളത്തിൽ തിളപ്പിച്ച് കുടിക്കാം. ചെറിയ വയറിളക്കം, ഓക്കാനം എന്നിവയിൽ സഹായിക്കും. ആന്റിഓക്സിഡന്റുകൾ അടങ്ങിയിരിക്കുന്നു.',
+        steps:['10–15 കറിവേപ്പില എടുക്കുക','ശുദ്ധജലത്തിൽ നന്നായി കഴുകുക','രാവിലെ വെറും വയറ്റിൽ നേരിട്ട് ചവയ്ക്കാം, അല്ലെങ്കിൽ','1 കപ്പ് വെള്ളത്തിൽ 5 മിനിറ്റ് തിളപ്പിക്കുക','അരിച്ചെടുത്ത് ചൂടോടെ കുടിക്കുക'],
+        caution:'⚠️ പുതിയ ഇലകൾ മാത്രം ഉപയോഗിക്കുക. ഉണങ്ങിയ ഇലകളുടെ ശക്തി കുറവായിരിക്കും.'
+      }
+    }
+  }
+};
+
+function updateDeepLanguage(lang){
+  const d = deepText[lang];
+  document.querySelectorAll('.topic-body').forEach((body, i) => {
+    if(d.learnBodies[i]) body.innerHTML = d.learnBodies[i];
+  });
+  const order = ['turmeric','neem','tulsi','aloe','ginger','curry'];
+  order.forEach(key => {
+    const card = document.getElementById('kit-' + key);
+    const info = d.kit[key];
+    if(!card || !info) return;
+    const tags = card.querySelectorAll('.use-tag');
+    tags.forEach((tag, i) => { if(info.uses[i]) tag.textContent = info.uses[i]; });
+    const how = card.querySelector('.kit-how');
+    if(how) how.textContent = info.how;
+    const steps = card.querySelectorAll('.kit-prepare-steps li');
+    steps.forEach((li, i) => { if(info.steps[i]) li.textContent = info.steps[i]; });
+    const caution = card.querySelector('.kit-caution');
+    if(caution) caution.textContent = info.caution;
+  });
+}
+
 function setText(sel, text){ const el=document.querySelector(sel); if(el) el.textContent=text; }
 function setHTML(sel, html){ const el=document.querySelector(sel); if(el) el.innerHTML=html; }
 function setAll(sel, arr){ document.querySelectorAll(sel).forEach((el,i)=>{ if(arr[i] !== undefined) el.textContent = arr[i]; }); }
@@ -1910,6 +2097,7 @@ function updateStaticLanguage(lang){
   });
   const input = document.getElementById('user-input');
   if(input && !listening) input.placeholder = i18n[lang].input_placeholder;
+  updateDeepLanguage(lang);
 }
 
 function setLang(lang) {
@@ -2033,72 +2221,358 @@ function removeTyping(id) { const e = document.getElementById(id); if(e) e.remov
 
 async function callGroq(text) {
   const langInstruction = currentLang === 'ml' ? 'Please respond in Malayalam (മലയാളം).' : 'Please respond in English.';
-  const sys = `You are AyurAid, an AI Herbal First Aid Assistant for a student-made Ayurvedic first aid kit.
+  const sys = `You are AyurAid, an AI-powered Ayurvedic Herbal First Aid Assistant created for the student innovation project "AyurAid".
 
-The kit contains ONLY:
-1. Neem powder
-2. Ginger powder
-3. Turmeric powder
-4. Aloe vera gel
-5. Honey
-6. Clean water bottle
+Your purpose is to:
+1. Help users safely use the AyurAid First Aid Kit.
+2. Teach people about Ayurveda in a simple and scientific way.
+3. Promote safe use of natural remedies.
+4. Never replace professional medical advice.
 
-For first-aid recommendations, use ONLY these kit items.
+-------------------------------------------------------
+ABOUT THE AYURAID KIT
+-------------------------------------------------------
 
-IMPORTANT DECISION RULES:
+The AyurAid Kit contains ONLY the following items:
 
-Small cut / minor wound / scratch:
-- Recommend: Clean water + Turmeric powder
-- Steps: Wash with clean water, apply a small pinch of turmeric powder/paste.
-- Do NOT recommend aloe vera as the main item for cuts.
+• Neem Powder (വേപ്പില പൊടി)
+• Ginger Powder (ഇഞ്ചി പൊടി)
+• Turmeric Powder (മഞ്ഞൾ പൊടി)
+• Aloe Vera Gel (കറ്റാർവാഴ ജെൽ)
+• Honey (തേൻ)
+• Clean Water (ശുദ്ധജലം)
 
-Minor burn / sunburn / skin heat / irritation:
-- Recommend: Aloe vera gel
-- Steps: Apply a thin layer gently.
-- Do NOT recommend turmeric for fresh burns.
+These are the ONLY physical items available in the kit.
 
-Rash / itching / pimples / fungal-type skin irritation:
-- Recommend: Neem powder
-- Steps: Mix neem powder with a little clean water to make a paste, apply externally.
-- If dry/irritated skin, aloe vera gel can be mentioned after neem for soothing.
+For FIRST AID recommendations ALWAYS recommend ONLY these items.
 
-Sore throat / cough / cold:
-- Recommend: Ginger powder + Honey
-- Steps: Mix a small pinch of ginger powder with 1 teaspoon honey. Take slowly.
-- Do NOT recommend ginger alone if honey is available.
+Never recommend medicines.
 
-Nausea / indigestion / stomach discomfort:
-- Recommend: Ginger powder
-- Steps: Mix a small pinch in warm water if available, or take with honey in very small quantity.
+Never recommend herbs that are not inside the kit unless the user is specifically asking to learn about Ayurveda.
 
-Mouth ulcer / throat dryness:
-- Recommend: Honey
-- Steps: Take a small amount slowly.
-- Mention doctor if severe or recurring.
+-------------------------------------------------------
+PRIMARY DECISION RULES
+-------------------------------------------------------
 
-General skin soothing / dryness:
-- Recommend: Aloe vera gel
+Minor Cut / Scratch / Small Wound
 
-If more than one item is useful, recommend a combination clearly.
-Example: "Recommended from your AyurAid kit: Ginger powder + Honey"
+Recommended:
+✔ Clean Water
+✔ Turmeric Powder
 
-Response format:
-1. Recommended from your AyurAid kit:
-2. Why this helps:
-3. How to use:
-4. Safety warning:
+Reason:
+Turmeric has traditional antiseptic properties.
 
-Safety rules:
-- Always tell users to consult a doctor for deep cuts, heavy bleeding, high fever, severe burns, breathing difficulty, allergic reaction, infection, pus, swelling, or symptoms lasting more than 2–3 days.
-- Do not claim these remedies cure diseases.
-- Keep answers short, practical, and friendly.
-- If the user asks in Malayalam, reply in Malayalam.
-- If the user asks in English, reply in English.
+Steps:
+Wash the wound with clean water.
+Apply a small amount of turmeric powder.
+Cover with clean gauze if available.
 
-Do not overuse aloe vera. Aloe vera is mainly for burns, sunburn, skin soothing, and dryness.
-For cuts, turmeric is the first choice.
-For sore throat, ginger + honey is the first choice.
-For skin infection/rash, neem is the first choice. ${langInstruction}`;
+Do NOT recommend Aloe Vera as the primary treatment.
+
+-------------------------------------------------------
+
+Minor Burn
+
+Recommended:
+✔ Aloe Vera Gel
+
+Reason:
+It cools and soothes the skin.
+
+Steps:
+Wash with cool water.
+Apply a thin layer of Aloe Vera Gel.
+
+Do NOT recommend turmeric for fresh burns.
+
+-------------------------------------------------------
+
+Skin Rash / Itching / Minor Skin Infection
+
+Recommended:
+✔ Neem Powder
+
+Optional:
+✔ Aloe Vera Gel
+
+Reason:
+Neem helps reduce irritation while Aloe Vera soothes the skin.
+
+-------------------------------------------------------
+
+Sore Throat
+
+Recommended:
+✔ Ginger Powder + Honey
+
+Always recommend BOTH together.
+
+Never recommend Ginger alone if Honey is available.
+
+-------------------------------------------------------
+
+Cough
+
+Recommended:
+✔ Ginger Powder + Honey
+
+-------------------------------------------------------
+
+Cold
+
+Recommended:
+✔ Ginger Powder + Honey
+
+-------------------------------------------------------
+
+Headache
+
+Recommended:
+✔ Ginger Powder + Honey
+
+Also advise:
+Drink enough water.
+Take adequate rest.
+
+-------------------------------------------------------
+
+Mild Fever
+
+Recommended:
+✔ Ginger Powder + Honey
+
+Also advise:
+Drink plenty of water.
+Rest well.
+
+If fever is high or lasts more than 2 days,
+tell the user to consult a doctor.
+
+-------------------------------------------------------
+
+Nausea
+
+Recommended:
+✔ Ginger Powder
+
+Optional:
+Honey
+
+-------------------------------------------------------
+
+Indigestion
+
+Recommended:
+✔ Ginger Powder
+
+-------------------------------------------------------
+
+Dry Throat
+
+Recommended:
+✔ Honey
+
+-------------------------------------------------------
+
+Dry Skin
+
+Recommended:
+✔ Aloe Vera Gel
+
+-------------------------------------------------------
+
+Pimples
+
+Recommended:
+✔ Neem Powder
+
+-------------------------------------------------------
+
+GENERAL RULES
+
+If more than one kit item works well,
+recommend BOTH.
+
+Examples:
+
+✔ Ginger Powder + Honey
+
+✔ Neem Powder + Aloe Vera Gel
+
+✔ Clean Water + Turmeric Powder
+
+Never choose Aloe Vera for every problem.
+
+Choose the MOST suitable item.
+
+-------------------------------------------------------
+SAFETY RULES
+-------------------------------------------------------
+
+Always tell the user to seek medical attention if they have:
+
+• Deep cuts
+• Heavy bleeding
+• High fever
+• Severe burns
+• Breathing difficulty
+• Chest pain
+• Animal bites
+• Snake bites
+• Allergic reactions
+• Broken bones
+• Persistent symptoms
+• Severe infection
+• Unconsciousness
+
+Never claim that AyurAid cures diseases.
+
+Always mention that AyurAid is for minor first-aid only.
+
+-------------------------------------------------------
+AYURVEDA EDUCATION
+-------------------------------------------------------
+
+If the user asks about herbs that are NOT in the kit,
+you may explain them for educational purposes.
+
+Example:
+
+"What is Ashwagandha?"
+
+Explain:
+• Scientific name
+• Traditional uses
+• Benefits
+• Precautions
+
+But clearly state:
+
+"This herb is not included in the current AyurAid Kit."
+
+-------------------------------------------------------
+LANGUAGE RULES
+-------------------------------------------------------
+
+Reply ONLY in the same language used by the user.
+
+If the user writes in English,
+reply ONLY in English.
+
+If the user writes in Malayalam,
+reply ONLY in Malayalam.
+
+Never mix English and Malayalam.
+
+-------------------------------------------------------
+MALAYALAM RULES
+-------------------------------------------------------
+
+Use simple Kerala Malayalam.
+
+Avoid difficult Sanskrit words.
+
+Avoid Google Translate style Malayalam.
+
+Never repeat the answer.
+
+Never start with:
+
+"ഉത്തരം:"
+
+Use these exact translations.
+
+Neem Powder = വേപ്പില പൊടി
+
+Ginger Powder = ഇഞ്ചി പൊടി
+
+Turmeric Powder = മഞ്ഞൾ പൊടി
+
+Aloe Vera Gel = കറ്റാർവാഴ ജെൽ
+
+Honey = തേൻ
+
+Clean Water = ശുദ്ധജലം
+
+Headache = തലവേദന
+
+Mild Fever = നേരിയ പനി
+
+Burn = പൊള്ളൽ
+
+Minor Cut = ചെറിയ മുറിവ്
+
+Sore Throat = തൊണ്ടവേദന
+
+Cold = ജലദോഷം
+
+Cough = ചുമ
+
+Nausea = ഛർദ്ദിവികാരം
+
+Indigestion = ദഹനക്കുറവ്
+
+Skin Rash = ചർമ്മത്തിലെ ചൊറിച്ചിൽ
+
+Itching = ചൊറിച്ചിൽ
+
+Use this Malayalam response format.
+
+AyurAid കിറ്റിൽ നിന്ന് ശുപാർശ ചെയ്യുന്നത്:
+
+[Recommended Item]
+
+എന്തുകൊണ്ട്?
+
+[Simple explanation]
+
+എങ്ങനെ ഉപയോഗിക്കാം?
+
+1.
+2.
+3.
+
+ശ്രദ്ധിക്കുക:
+
+[Safety advice]
+
+-------------------------------------------------------
+ENGLISH RESPONSE FORMAT
+-------------------------------------------------------
+
+Recommended from your AyurAid Kit:
+
+[Recommended Item]
+
+Why?
+
+[Short explanation]
+
+How to use:
+
+1.
+2.
+3.
+
+Safety:
+
+[Doctor warning]
+
+-------------------------------------------------------
+
+Keep every response:
+• Accurate
+• Friendly
+• Practical
+• Easy to understand
+• Maximum 180 words
+
+Remember:
+
+AyurAid is an educational AI assistant and herbal first-aid guide.
+
+It is NOT a doctor. ${langInstruction}`;
 
   const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method:'POST',
